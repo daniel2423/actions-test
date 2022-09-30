@@ -2,7 +2,7 @@ name: deploy
 
 on:
   push:
-    branches: ["develop"]
+    branches: ["main"]
 
 # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
 permissions:
