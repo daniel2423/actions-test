@@ -10,11 +10,6 @@ permissions:
   pages: write      # to deploy to Pages
   id-token: write   # to verify the deployment originates from an appropriate source
 
-# Deploy to the github-pages environment
-environment:
-  name: github-pages
-  url: ${{ steps.deployment.outputs.page_url }}
-
 jobs:
   build:
     runs-on: [self-hosted, linux, x64, ci-cloud]
@@ -25,8 +20,8 @@ jobs:
           persist-credentials: false
       - name: build
         run: make html
-      - name: Setup Pages
-        uses: actions/configure-pages@v1
+      #- name: Setup Pages
+      #  uses: actions/configure-pages@v1
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
@@ -36,6 +31,11 @@ jobs:
   deploy:
     # Add a dependency to the build job
     needs: build
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     # Specify runner + deployment step
     runs-on: [self-hosted, linux, x64, ci-cloud]
